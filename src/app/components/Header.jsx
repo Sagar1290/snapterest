@@ -1,33 +1,88 @@
+"use client";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { IoClose, IoMenu } from "react-icons/io5";
+
 const Header = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const handleShowMenu = () => {
+    setShowMenu((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header class="sticky top-0 z-50 mx-7 flex max-lg:flex-col justify-between py-6 border-b gap-2 border-white/60 pointer-events-auto">
-      <div class="whitespace-nowrap">
-        <h1 class="font-bold inline align-middle">CSS-Only Carousels</h1>
-        <a
-          title="Read the article"
-          href="https://tympanus.net/codrops/?p=75188"
+    <header
+      className={`${
+        scrollPosition >= 600
+          ? "bg-black justify-between"
+          : "bg-transparent justify-end"
+      } w-full fixed top-0 flex items-center p-6 z-50 transition-all duration-300`}
+    >
+      {scrollPosition >= 600 ? (
+        <div className="text-white text-2xl font-bold tracking-[10px]">
+          <Link href="/">SNAPTEREST</Link>
+        </div>
+      ) : (
+        ""
+      )}
+      <nav
+        className={`${
+          scrollPosition >= 30 && scrollPosition <= 600 ? "hidden" : ""
+        } text-white flex justify-end w-full`}
+      >
+        <ul
+          className={`${
+            scrollPosition <= 30 ? "flex" : "hidden"
+          } lg:flex flex-row gap-10 lg:pr-10`}
         >
-          <svg
-            class="h-3 ml-0.5 inline-block align-middle"
-            viewBox="0 0 12 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M1.00006 0.25H11.7501V11H10.2501V2.81066L1.53039 11.5303L0.469727 10.4697L9.1894 1.75H1.00006V0.25Z"
-              fill="currentColor"
-            />
-          </svg>
-        </a>
-      </div>
-      <nav class="flex items-center gap-10">
-        <a href="index.html" aria-current="page">
-          Demo 1
-        </a>
-        <a href="index2.html">Demo 2</a>
-        <a href="index3.html">Demo 3</a>
+          <li>
+            <Link href="/about">About Us</Link>
+          </li>
+          <li>
+            <Link href="/post">Posts</Link>
+          </li>
+          <li>
+            <Link href="/join">Join Us</Link>
+          </li>
+        </ul>
+
+        <div
+          className={`${scrollPosition <= 600 ? "hidden" : "block"} lg:hidden`}
+        >
+          <div onClick={handleShowMenu} className="text-2xl">
+            {showMenu ? <IoClose /> : <IoMenu />}
+          </div>
+          <div className="absolute top-[100%] right-[5%] whitespace-nowrap">
+            {showMenu ? (
+              <ul className="bg-sky-200 flex flex-col gap-4 px-10 text-lg text-black font-semibold">
+                <li>
+                  <Link href="/about">About Us</Link>
+                </li>
+                <li>
+                  <Link href="/post">Posts</Link>
+                </li>
+                <li>
+                  <Link href="/join">Join Us</Link>
+                </li>
+              </ul>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
       </nav>
     </header>
   );

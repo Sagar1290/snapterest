@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { FaQuoteLeft } from "react-icons/fa";
 
 const Quotes = () => {
   const [quoteIndex, setQuoteIndex] = useState(0);
@@ -68,13 +69,19 @@ const Quotes = () => {
   }, [quotes]);
 
   return (
-    <div className="">
+    <div className="border rounded-lg shadow-md p-10 h-[200px] md:h-[270px] flex items-center">
       <h1
-        className={`transition-opacity duration-500 text-2xl ${fadeIn ? "opacity-100" : "opacity-0"
-          }`}
+        className={`text-md  transition-opacity duration-500 md:text-2xl flex flex-col ${
+          fadeIn ? "opacity-100" : "opacity-0"
+        }`}
       >
-        <span className="text-gray-500">{quotes[quoteIndex].quote}</span>
-        <span className="text-gray-800">- {quotes[quoteIndex].writer}</span>
+        <FaQuoteLeft className="text-white" />
+        <span className="text-white tracking-wider leading-8 md:leading-10 ">
+          {quotes[quoteIndex].quote}
+        </span>
+        <span className="text-gray-400 flex justify-end">
+          - {quotes[quoteIndex].writer}
+        </span>
       </h1>
     </div>
   );

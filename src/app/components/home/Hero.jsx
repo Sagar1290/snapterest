@@ -1,22 +1,44 @@
 import Image from "next/image";
+import Quotes from "../Quotes";
+import { FaArrowRight } from "react-icons/fa";
 
 const Hero = () => {
   return (
-    <section>
-      <div className="min-h-screen relative flex flex-col gap-8 overflow-clip">
-        <Image
-          src="/images/helmet.jpg"
-          alt="a man wearing helmet"
-          width={1767}
-          height={900}
-          className="absolute -z-20 inset-0 h-full w-full object-cover"
-        />
+    <section className="w-full overflow-clip min-h-screen hero-section flex flex-col lg:flex-row pt-20">
+      <div className="w-full lg:w-1/2 flex flex-col gap-4">
+        <div className="text-white">
+          <p className="text-sm lg:text-lg px-7 py-4">
+            The world needs your perspective.
+          </p>
+          <p className="px-7 text-sm lg:text-base">
+            Let's{" "}
+            <button className="border rounded-md mx-2 p-2 hover:bg-white/70 hover:text-gray-700">
+              Get Started
+            </button>{" "}
+            With
+          </p>
+        </div>
+        <div className="w-[55%] px-7 lg:px-7 pt-11 pb-4 text-white text-2xl font-bold tracking-[10px] lg:border-b lg:border-white/60">
+          SNAPTEREST
+        </div>
+        <p className="p-4 lg:p-7 font-serif text-5xl lg:text-7xl text-white flex flex-col gap-4">
+          <span>A HotSpot for</span>
+          <em>Photographers</em>
+        </p>
+        <p className="hidden lg:flex text-white pb-15 flex-row gap-4 items-center justify-end">
+          <span>Upload</span>
+          <FaArrowRight />
+          <span>Inspire</span>
+          <FaArrowRight />
+          <span>Connect</span>
+          <FaArrowRight />
+        </p>
       </div>
-      <p className="translate-y-[50%] skew-y-[1.5deg]">
-        The Reflective Helmet seamlessly integrates reflective technology,
-        ensuring visibility without drawing unnecessary attention. The perfect
-        choice for the mindful cyclist.
-      </p>
+      <div className="w-full flex justify-center lg:justify-end lg:items-end py-10 lg:py-0 lg:pb-20 lg:pr-14">
+        <div className="max-w-xl w-[90%] lg:w-full">
+          <Quotes />
+        </div>
+      </div>
     </section>
   );
 };
