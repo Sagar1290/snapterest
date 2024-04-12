@@ -3,7 +3,7 @@ import Explore from "./Explore";
 export default function Posts() {
   return (
     <div className="bg-red-200 pt-28 ">
-      <div className="w-full lg:w-[80%] mx-auto flex flex-col lg:flex-row border">
+      <div className="w-full lg:w-[80%] mx-auto flex flex-col lg:flex-row ">
         <div className="w-full lg:w-1/2 px-10 lg:px-0">
           <div className="w-full lg:sticky top-24 lg:pb-20">
             <h1 className="text-2xl lg:text-5xl pb-5 lg:pb-10 font-semibold lg:pt-28 tracking-wide">

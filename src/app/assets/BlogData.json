@@ -1,0 +1,34 @@
+[
+  {
+    "heading": "Rule of Thirds: Composing Powerful Photographs",
+    "image_url": "/images/blogs/Rule-of-Third.webp",
+    "description": "The rule of thirds is a fundamental composition technique used in photography and videography to arrange elements in a way that's visually appealing. Learn how to apply it to your photos and elevate their impact!",
+    "author": "John Doe",
+    "published_date": "2024-04-10",
+    "info": "Beginner"
+  },
+  {
+    "heading": "Mastering Lighting: Capture the Mood with Natural Light",
+    "image_url": "/images/blogs/Natural-Light.png",
+    "description": "Natural light is a photographer's best friend! Explore tips and tricks for using natural light effectively to create stunning and evocative photographs.",
+    "author": "Jane Smith",
+    "published_date": "2024-04-05",
+    "info": "Intermediate"
+  },
+  {
+    "heading": "Creative Angles: See the World in a New Light",
+    "image_url": "/images/blogs/angle-1.jpg",
+    "description": "Break free from the ordinary! Discover the power of creative angles in photography and how they can add depth, dynamism, and a unique perspective to your images.",
+    "author": "David Lee",
+    "published_date": "2024-03-30",
+    "info": "Advanced"
+  },
+  {
+    "heading": "The Art of Street Photography: Capturing Life in the Moment",
+    "image_url": "/images/blogs/Street-Photography.jpg",
+    "description": "Explore the dynamic world of street photography and discover how to document life in urban environments. The key is to capture real life and create powerful images that tell stories about the people you photograph and their surroundings.",
+    "author": "Michael Johnson",
+    "published_date": "2024-03-10",
+    "info": "street"
+  }
+]

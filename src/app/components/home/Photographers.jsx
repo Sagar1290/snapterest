@@ -3,7 +3,7 @@ import PhotographerDetails from "./PhotographerDetails";
 const Photographers = () => {
   return (
     <section className="w-full bg-red-200 py-20">
-      <div className="w-full lg:w-[80%] mx-auto flex flex-col lg:flex-row-reverse border">
+      <div className="w-full lg:w-[80%] mx-auto flex flex-col lg:flex-row-reverse ">
         <div className="w-full lg:w-1/2 px-10 lg:px-0">
           <h1 className="text-2xl lg:text-5xl pb-5 lg:pb-10 font-semibold lg:pt-28 tracking-wide">
             <span className="text-orange-500 font-mono">Trending Talents:</span>{" "}
