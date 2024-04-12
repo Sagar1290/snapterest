@@ -29,7 +29,7 @@ const Header = () => {
         scrollPosition >= 600
           ? "bg-black justify-between"
           : "bg-transparent justify-end"
-      } w-full fixed top-0 flex items-center p-6 z-50 transition-all duration-300`}
+      } w-full fixed top-0 flex items-center p-6 z-50 transition-all duration-300 overflow-hidden`}
     >
       {scrollPosition >= 600 ? (
         <div className="text-white text-2xl font-bold tracking-[10px]">
