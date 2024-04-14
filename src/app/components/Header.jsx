@@ -40,21 +40,21 @@ const Header = () => {
       )}
       <nav
         className={`${
-          scrollPosition >= 30 && scrollPosition <= 600 ? "hidden" : ""
-        } text-white flex justify-end w-full`}
+          scrollPosition <= 30 || scrollPosition >= 600 ? "flex" : "hidden"
+        } text-gray-100 transition   justify-end w-full`}
       >
         <ul
           className={`${
             scrollPosition <= 30 ? "flex" : "hidden"
           } lg:flex flex-row gap-10 lg:pr-10`}
         >
-          <li>
+          <li className="hover:text-gray-100/75">
             <Link href="/about">About Us</Link>
           </li>
-          <li>
+          <li className="hover:text-gray-100/75">
             <Link href="/post">Posts</Link>
           </li>
-          <li>
+          <li className="hover:text-gray-100/75">
             <Link href="/join">Join Us</Link>
           </li>
         </ul>
@@ -66,7 +66,7 @@ const Header = () => {
             {showMenu ? <IoClose /> : <IoMenu />}
           </div>
           <div className="w-[50%] absolute top-[100%] right-[5%] whitespace-nowrap">
-            {showMenu ? (
+            {showMenu && scrollPosition >= 600 ? (
               <ul className="space-y-1">
                 <li>
                   <a

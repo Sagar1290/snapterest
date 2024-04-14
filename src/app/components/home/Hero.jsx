@@ -4,7 +4,10 @@ import { FaArrowRight } from "react-icons/fa";
 
 const Hero = () => {
   return (
-    <section className="w-full overflow-clip min-h-screen hero-section flex flex-col lg:flex-row pt-20">
+    <section
+      id="hero"
+      className="w-full overflow-clip min-h-screen hero-section flex flex-col lg:flex-row pt-20"
+    >
       <div className="w-full lg:w-1/2 flex flex-col gap-4">
         <div className="text-white">
           <p className="text-sm lg:text-lg px-7 py-4">
