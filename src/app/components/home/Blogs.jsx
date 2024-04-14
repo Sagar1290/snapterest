@@ -1,5 +1,5 @@
 import React from "react";
-import blogs from "@/app/assets/BlogData.json";
+import blogs from "@/assets/BlogData.json";
 import Image from "next/image";
 import { FaCalendarAlt, FaTag, FaUser } from "react-icons/fa";
 

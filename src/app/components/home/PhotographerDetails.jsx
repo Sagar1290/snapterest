@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
-import annie from "@/app/assets/photographers/annie-spratt.jpg";
-import jakob from "@/app/assets/photographers/jakob-owens.jpg";
-import kinga from "@/app/assets/photographers/kinga-howard.jpg";
-import li from "@/app/assets/photographers/li-shanting.jpg";
-import tim from "@/app/assets/photographers/tim-mossholder.jpg";
+import annie from "@/assets/photographers/annie-spratt.jpg";
+import jakob from "@/assets/photographers/jakob-owens.jpg";
+import kinga from "@/assets/photographers/kinga-howard.jpg";
+import li from "@/assets/photographers/li-shanting.jpg";
+import tim from "@/assets/photographers/tim-mossholder.jpg";
 import { useEffect, useState } from "react";
 
 const detail = [

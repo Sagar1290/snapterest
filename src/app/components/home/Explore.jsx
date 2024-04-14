@@ -1,13 +1,13 @@
 import React from "react";
 
 import Image from "next/image";
-import nature from "@/app/assets/home/nature.jpg";
+import nature from "@/assets/home/nature.jpg";
 
-import indiaGate from "@/app/assets/home/india-gate.jpg";
-import wedding from "@/app/assets/home/wedding.jpg";
-import group from "@/app/assets/home/group-photoshoot.jpg";
-import scenery from "@/app/assets/home/scenery.jpg";
-import photoshoot from "@/app/assets/home/photoshoot.jpg";
+import indiaGate from "@/assets/home/india-gate.jpg";
+import wedding from "@/assets/home/wedding.jpg";
+import group from "@/assets/home/group-photoshoot.jpg";
+import scenery from "@/assets/home/scenery.jpg";
+import photoshoot from "@/assets/home/photoshoot.jpg";
 
 const Explore = () => {
   return (
