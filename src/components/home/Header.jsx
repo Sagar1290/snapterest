@@ -41,7 +41,7 @@ const Header = () => {
       <nav
         className={`${
           scrollPosition <= 30 || scrollPosition >= 600 ? "flex" : "hidden"
-        } text-gray-100 transition   justify-end w-full`}
+        } text-gray-100 transition justify-end w-full`}
       >
         <ul
           className={`${
@@ -52,7 +52,7 @@ const Header = () => {
             <Link href="/about">About Us</Link>
           </li>
           <li className="hover:text-gray-100/75">
-            <Link href="/post">Posts</Link>
+            <Link href="/posts">Posts</Link>
           </li>
           <li className="hover:text-gray-100/75">
             <Link href="/join">Join Us</Link>

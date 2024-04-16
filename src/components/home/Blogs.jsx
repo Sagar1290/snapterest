@@ -8,7 +8,9 @@ const Blogs = () => {
     <section className="w-full bg-red-200 pb-20">
       <div className="w-full mx-auto">
         <h1 className="w-[80%] mx-auto text-2xl lg:text-5xl lg:pb-20 font-semibold pt-0 lg:pt-10 pb-10 tracking-wide">
-          <span className="text-orange-500 font-mono">Unlock the Secrets:</span>
+          <span className="text-orange-500 font-mono font-bold">
+            Unlock the Secrets:
+          </span>
           Expert Photography Tips You Won't Find Elsewhere
         </h1>
         <div className="flex flex-wrap gap-8 lg:gap-6 w-[90%] mx-auto justify-around">

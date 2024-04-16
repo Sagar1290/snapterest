@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Quotes from "../Quotes";
+import Quotes from "./Quotes";
 import { FaArrowRight } from "react-icons/fa";
 
 const Hero = () => {

@@ -7,11 +7,10 @@ import li from "@/assets/photographers/li-shanting.jpg";
 import tim from "@/assets/photographers/tim-mossholder.jpg";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, Pagination } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 import "swiper/css/autoplay";
 
 const detail = [
@@ -52,7 +51,7 @@ const PhotographerDetails = () => {
           clickable: true,
         }}
         navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay, Navigation]}
         className="relative w-full flex flex-col lg:justify-between"
       >
         {detail.map((ele, id) => {
