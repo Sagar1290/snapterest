@@ -47,9 +47,6 @@ const PhotographerDetails = () => {
           disableOnInteraction: false,
         }}
         loop={true}
-        pagination={{
-          clickable: true,
-        }}
         navigation={true}
         modules={[Autoplay, Navigation]}
         className="relative w-full flex flex-col lg:justify-between"

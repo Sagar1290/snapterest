@@ -5,14 +5,14 @@ import { CiLocationOn } from "react-icons/ci";
 
 const Card = ({ image }) => {
   return (
-    <div className="border-black bg-white rounded-xl w-[95%] max-w-[400px] mx-auto mb-2">
+    <div className="border-black bg-white rounded-xl w-[95%] max-w-xl  mx-auto mb-2">
       <div className="w-full flex gap-4 items-center py-2 px-4">
         <Image
           height={200}
           width={200}
           src="/images/user.jpg"
           alt="user-image"
-          className="h-12 w-12 cover border rounded-full"
+          className="h-12 w-12 cover border rounded-full "
         />
         <div className="flex flex-col">
           <div className="text-base">Sagar Prajapati</div>
@@ -28,7 +28,7 @@ const Card = ({ image }) => {
           alt="post"
           height={1024}
           width={1024}
-          className="w-full rounded-xl object-cover"
+          className="w-full rounded-xl object-cover lg:max-h-[550px]"
         />
       </div>
       <div className="flex flex-row gap-6 py-4 px-2">
