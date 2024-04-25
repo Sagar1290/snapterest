@@ -2,7 +2,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTrash } from "react-icons/fa";
 import { HiCamera } from "react-icons/hi";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
@@ -13,33 +13,44 @@ const Header = () => {
   const [showSignOut, setShowSignOut] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession();
-  const imgRef = useRef();
+  const imgRef = useRef(null);
 
+  const [image, setImage] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
+
+  const handleImageInput = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      setImgUrl(URL.createObjectURL(file));
+    }
+  };
+  console.log(image);
   const handleShowMenu = () => {
     setShowMenu((prev) => !prev);
   };
   return (
-    <header class="bg-black w-full fixed top-0 p-6 z-50 transition-all duration-300">
-      <div class="flex items-center justify-between">
+    <header className="bg-black w-full fixed top-0 p-6 z-50 transition-all duration-300">
+      <div className="flex items-center justify-between">
         <div className="text-white text-2xl font-bold tracking-[10px]">
           <Link href="/">SNAPTEREST</Link>
         </div>
 
-        <div class="md:flex md:items-center md:gap-12">
-          <nav class="hidden md:block text-gray-100 w-full">
-            <ul class="flex items-center flex-row gap-10 lg:pr-10">
-              <div class="relative">
+        <div className="md:flex md:items-center md:gap-12">
+          <nav className="hidden md:block text-gray-100 w-full">
+            <ul className="flex items-center flex-row gap-10 lg:pr-10">
+              <div className="relative">
                 <input
                   type="text"
                   id="Search"
                   placeholder="Search for..."
-                  class="w-full rounded-md border-gray-200 py-2.5 pe-10 px-2 shadow-sm text-gray-800"
+                  className="w-full rounded-md border-gray-200 py-2.5 pe-10 px-2 shadow-sm text-gray-800"
                 />
 
-                <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
+                <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
                   <button
                     type="button"
-                    class="text-gray-600 hover:text-gray-700"
+                    className="text-gray-600 hover:text-gray-700"
                   >
                     <FaSearch />
                   </button>
@@ -115,18 +126,18 @@ const Header = () => {
                       </a>
                     </li>
                   )}
-                  <div class="relative px-1">
+                  <div className="relative px-1">
                     <input
                       type="text"
                       id="Search"
                       placeholder="Search for..."
-                      class="w-full rounded-md border-gray-200 py-2 pe-10 px-2 shadow-sm text-gray-700"
+                      className="w-full rounded-md border-gray-200 py-2 pe-10 px-2 shadow-sm text-gray-700"
                     />
 
-                    <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
+                    <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
                       <button
                         type="button"
-                        class="text-gray-600 hover:text-gray-700"
+                        className="text-gray-600 hover:text-gray-700"
                       >
                         <FaSearch />
                       </button>
@@ -193,12 +204,26 @@ const Header = () => {
           ariaHideApp={false}
           className="bg-red-200 shadow-md w-[90%] max-w-lg p-6 rounded-md absolute top-40 left-1/2 -translate-x-1/2"
         >
-          <form className="flex flex-col items-center justify-center gap-2">
-            <input type="file" ref={imgRef} className="hidden" />
-            <HiCamera
-              className="text-7xl text-gray-500 cursor-pointer hover:brightness-110"
-              // onClick={imgRef.current.click()}
+          <form className="flex flex-col items-center justify-center gap-2 outline-none">
+            <input
+              type="file"
+              ref={imgRef}
+              className="hidden outline-none focus:outline-none"
+              onChange={handleImageInput}
+              accept="image/*"
             />
+            {image ? (
+              <img
+                src={imgUrl}
+                alt="selected image"
+                className="h-44 w-44 object-contain"
+              />
+            ) : (
+              <HiCamera
+                className="text-7xl text-gray-500 cursor-pointer hover:brightness-110"
+                onClick={() => imgRef.current.click()}
+              />
+            )}
             <input
               placeholder="Enter your caption..."
               maxLength="150"
@@ -211,10 +236,21 @@ const Header = () => {
             >
               Upload Post
             </button>
-            <IoClose
-              className="absolute top-4 right-4 text-2xl cursor-pointer hover:text-red-600 transition duration-300"
-              onClick={() => setIsOpen(false)}
-            />
+            <div className="absolute top-4 right-4 flex flex-row items-center gap-2">
+              {image && (
+                <FaTrash
+                  className="cursor-pointer text-lg hover:text-red-600 transition duration-300"
+                  onClick={() => {
+                    setImage(null);
+                    setImgUrl(null);
+                  }}
+                />
+              )}
+              <IoClose
+                className="cursor-pointer text-2xl hover:text-red-600 transition duration-300"
+                onClick={() => setIsOpen(false)}
+              />
+            </div>
           </form>
         </Modal>
       )}

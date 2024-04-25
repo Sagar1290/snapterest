@@ -5,7 +5,7 @@ import { CiLocationOn } from "react-icons/ci";
 
 const Card = ({ image }) => {
   return (
-    <div className="border-black bg-white rounded-xl w-[95%] max-w-xl  mx-auto mb-2">
+    <div className="border-black bg-white rounded-xl w-[95%] max-w-md  mx-auto mb-2 h-auto">
       <div className="w-full flex gap-4 items-center py-2 px-4">
         <Image
           height={200}
