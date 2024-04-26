@@ -25,7 +25,7 @@ const Header = () => {
       setImgUrl(URL.createObjectURL(file));
     }
   };
-  console.log(image);
+
   const handleShowMenu = () => {
     setShowMenu((prev) => !prev);
   };

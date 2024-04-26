@@ -3,7 +3,7 @@ import React from "react";
 import { FaComment, FaHeart, FaRegHeart, FaShare } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
 
-const Card = ({ image }) => {
+const Card = ({ post }) => {
   return (
     <div className="border-black bg-white rounded-xl w-[95%] max-w-md  mx-auto mb-2 h-auto">
       <div className="w-full flex gap-4 items-center py-2 px-4">
@@ -15,16 +15,16 @@ const Card = ({ image }) => {
           className="h-12 w-12 cover border rounded-full "
         />
         <div className="flex flex-col">
-          <div className="text-base">Sagar Prajapati</div>
+          <div className="text-base">{post.author}</div>
           <div className="text-sm flex gap-2 items-center">
             <CiLocationOn />
-            <span>India</span>
+            <span>{post.location}</span>
           </div>
         </div>
       </div>
       <div className="w-full rounded-xl">
         <Image
-          src={image}
+          src={post.image}
           alt="post"
           height={1024}
           width={1024}
