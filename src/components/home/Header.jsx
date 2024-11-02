@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
 
 const Header = () => {
   const { data: session } = useSession();
@@ -36,8 +35,13 @@ const Header = () => {
       } w-full fixed top-0 flex items-center p-6 z-50 transition-all duration-300`}
     >
       {scrollPosition >= 600 ? (
-        <div className="text-white text-2xl font-bold tracking-[10px]">
-          <Link href="/">SNAPTEREST</Link>
+        <div>
+          <Link
+            className="text-white text-2xl font-bold tracking-[10px] hover:no-underline hover:text-gray-100/75"
+            href="/"
+          >
+            SNAPTEREST
+          </Link>
         </div>
       ) : (
         ""
@@ -52,11 +56,15 @@ const Header = () => {
             scrollPosition <= 30 ? "flex" : "hidden"
           } lg:flex flex-row gap-10 lg:pr-10 items-center`}
         >
-          <li className="hover:text-gray-100/75">
-            <Link href="/about">About Us</Link>
+          <li className="">
+            <Link className="text-white hover:text-gray-100/75" href="/about">
+              About Us
+            </Link>
           </li>
-          <li className="hover:text-gray-100/75">
-            <Link href="/posts">Posts</Link>
+          <li className="">
+            <Link className="text-white hover:text-gray-100/75" href="/posts">
+              Posts
+            </Link>
           </li>
           {session ? (
             <li
@@ -78,12 +86,12 @@ const Header = () => {
               )}
             </li>
           ) : (
-            <li
-              className="hover:text-gray-100/75 hover:cursor-pointer"
-              onClick={signIn}
+            <Link
+              className="text-white hover:text-gray-100/75 hover:cursor-pointer"
+              href="/login"
             >
               <span>Join Us</span>
-            </li>
+            </Link>
           )}
         </ul>
 

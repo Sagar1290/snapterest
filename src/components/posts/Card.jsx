@@ -15,7 +15,7 @@ const Card = ({ post }) => {
           className="h-12 w-12 cover border rounded-full "
         />
         <div className="flex flex-col">
-          <div className="text-base">{post.author}</div>
+          <div className="text-base font-semibold">{post.author}</div>
           <div className="text-sm flex gap-2 items-center">
             <CiLocationOn />
             <span>{post.location}</span>

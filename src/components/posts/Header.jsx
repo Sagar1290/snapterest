@@ -32,14 +32,19 @@ const Header = () => {
   return (
     <header className="bg-black w-full fixed top-0 p-6 z-50 transition-all duration-300">
       <div className="flex items-center justify-between">
-        <div className="text-white text-2xl font-bold tracking-[10px]">
-          <Link href="/">SNAPTEREST</Link>
+        <div>
+          <Link
+            href="/"
+            className="text-white text-2xl font-bold tracking-[10px] hover:no-underline hover:text-gray-100/75"
+          >
+            SNAPTEREST
+          </Link>
         </div>
 
         <div className="md:flex md:items-center md:gap-12">
           <nav className="hidden md:block text-gray-100 w-full">
             <ul className="flex items-center flex-row gap-10 lg:pr-10">
-              <div className="relative">
+              {/* <div className="relative">
                 <input
                   type="text"
                   id="Search"
@@ -55,7 +60,7 @@ const Header = () => {
                     <FaSearch />
                   </button>
                 </span>
-              </div>
+              </div> */}
               <li className="hover:text-gray-100/75 cursor-pointer">
                 {session ? (
                   <div
@@ -66,13 +71,18 @@ const Header = () => {
                     <MdOutlineAddCircleOutline className="text-xl" />
                   </div>
                 ) : (
-                  <div onClick={signIn} className="hidden lg:block">
+                  <Link href="/login" className=" text-white hidden lg:block">
                     Login to create post
-                  </div>
+                  </Link>
                 )}
               </li>
-              <li className="hover:text-gray-100/75">
-                <Link href="/about">About Us</Link>
+              <li>
+                <Link
+                  className="text-white hover:text-gray-100/75 "
+                  href="/about"
+                >
+                  About Us
+                </Link>
               </li>
               {session ? (
                 <li
@@ -94,12 +104,12 @@ const Header = () => {
                   )}
                 </li>
               ) : (
-                <li
-                  className="hover:text-gray-100/75 hover:cursor-pointer"
-                  onClick={signIn}
+                <Link
+                  className="text-white hover:text-gray-100/75 hover:cursor-pointer"
+                  href="/login"
                 >
                   <span>Join Us</span>
-                </li>
+                </Link>
               )}
             </ul>
           </nav>
@@ -107,7 +117,7 @@ const Header = () => {
             <div onClick={handleShowMenu} className="text-2xl cursor-pointer">
               {showMenu ? <IoClose /> : <IoMenu />}
             </div>
-            <div className="w-[75%] absolute top-[100%] right-[5%] whitespace-nowrap bg-[#1B1212] rounded-lg">
+            <div className="w-[50%] absolute top-[100%] right-[5%] whitespace-nowrap bg-[#1B1212] rounded-lg">
               {showMenu ? (
                 <ul className="space-y-1">
                   {session ? (
@@ -126,7 +136,7 @@ const Header = () => {
                       </a>
                     </li>
                   )}
-                  <div className="relative px-1">
+                  {/* <div className="relative px-1">
                     <input
                       type="text"
                       id="Search"
@@ -142,7 +152,7 @@ const Header = () => {
                         <FaSearch />
                       </button>
                     </span>
-                  </div>
+                  </div> */}
                   {session ? (
                     <li>
                       <p

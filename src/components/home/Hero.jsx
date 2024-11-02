@@ -3,6 +3,7 @@
 import Quotes from "./Quotes";
 import { FaArrowRight } from "react-icons/fa";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -17,12 +18,12 @@ const Hero = () => {
           </p>
           <p className="px-7 text-sm lg:text-base">
             Let's{" "}
-            <button
-              className="border rounded-md mx-2 p-2 hover:bg-white/70 hover:text-gray-700"
-              onClick={() => signIn()}
+            <Link
+              className="border rounded-md mx-2 p-2 text-white hover:bg-white/70 hover:text-gray-700"
+              href="/login"
             >
               Get Started
-            </button>{" "}
+            </Link>{" "}
             With
           </p>
         </div>

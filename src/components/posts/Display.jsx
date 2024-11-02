@@ -74,10 +74,12 @@ const postData = [
 const Display = () => {
   return (
     <section className="w-full bg-red-200 py-24">
-      <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
+      <ResponsiveMasonry
+        columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1800: 4 }}
+      >
         <Masonry>
           {postData.map((post, id) => {
-            return <Card key="id" post={post} />;
+            return <Card key={id} post={post} />;
           })}
         </Masonry>
       </ResponsiveMasonry>

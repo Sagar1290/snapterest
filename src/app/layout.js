@@ -1,5 +1,6 @@
 import SessionWrapper from '@/components/SessionWrapper'
 import './globals.css'
+import 'rsuite/dist/rsuite.min.css';
 import { Inter } from 'next/font/google'
 // import { SpeedInsights } from "@vercel/speed-insights/next"
 

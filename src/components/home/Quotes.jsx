@@ -71,7 +71,7 @@ const Quotes = () => {
   return (
     <div className="border rounded-lg shadow-md p-10 h-[200px] md:h-[270px] flex items-center">
       <h1
-        className={`text-md  transition-opacity duration-500 md:text-2xl flex flex-col ${
+        className={`text-base md:text-md font-light transition-opacity duration-500 md:text-2xl flex flex-col ${
           fadeIn ? "opacity-100" : "opacity-0"
         }`}
       >
