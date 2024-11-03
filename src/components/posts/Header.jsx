@@ -33,6 +33,10 @@ const Header = () => {
   const handleShowMenu = () => {
     setShowMenu((prev) => !prev);
   };
+
+  const handleImageUpload = (e) => {
+    e.preventDefault();
+  };
   return (
     <header className="bg-black w-full fixed top-0 p-6 z-50 transition-all duration-300">
       <div className="flex items-center justify-between">
@@ -249,6 +253,7 @@ const Header = () => {
             />
             <button
               type="submit"
+              onClick={handleImageUpload}
               className="py-2 px-4 bg-red-600 disabled:bg-gray-400 text-white rounded-lg disabled:cursor-not-allowed hover:brightness-110 disabled:hover:brightness-100"
             >
               Upload Post
