@@ -16,7 +16,10 @@ const Blogs = () => {
         <div className="flex flex-wrap gap-8 lg:gap-6 w-[90%] mx-auto justify-around">
           {blogs.map((ele, index) => {
             return (
-              <div className="w-full lg:w-[48%] flex flex-col items-center rounded-xl bg-red-100/40 lg:bg-transparent">
+              <div
+                key={index}
+                className="w-full lg:w-[48%] flex flex-col items-center rounded-xl bg-red-100/40 lg:bg-transparent"
+              >
                 <Image
                   src={ele.image_url}
                   height={500}
