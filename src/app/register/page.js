@@ -1,4 +1,5 @@
 'use client'
+import LoginHeader from '@/components/LoginHeader'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -104,97 +105,102 @@ const page = () => {
     }
 
     return (
-        <section className="join-section relative flex flex-wrap h-full lg:items-center bg-red-200">
-            <div className="w-full px-4 py-5 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-14">
-                <div className="mx-auto max-w-lg text-center">
-                    <h1 className="text-2xl font-bold sm:text-3xl">Join Photographer's Community!</h1>
+        <>
+            <LoginHeader />
+            <main>
+                <section className="join-section relative flex flex-wrap h-screen lg:items-center bg-red-200">
+                    <div className="w-full px-4 py-5 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
+                        <div className="mx-auto max-w-lg text-center">
+                            <h1 className="text-2xl font-bold sm:text-3xl">Join Photographer's Community!</h1>
 
-                    <p className="mt-4 text-gray-500 px-12 text-balance">
-                        We are making photographs to understand what our lives mean to us.
-                    </p>
-                </div>
-
-                <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
-                    <div>
-                        <label htmlFor="fullname" className="sr-only">Name</label>
-                        <div className="relative">
-                            <input
-                                id='fullname'
-                                type="text"
-                                ref={nameInputRef}
-                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none"
-                                placeholder="Enter Your Name"
-                            />
+                            <p className="mt-4 text-gray-500 px-12 text-balance">
+                                We are making photographs to understand what our lives mean to us.
+                            </p>
                         </div>
-                    </div>
-                    <div>
-                        <label htmlFor="email" className="sr-only">Email</label>
-                        <div className="relative">
-                            <input
-                                id='email'
-                                type="email"
-                                ref={emailInputRef}
-                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none"
-                                placeholder="Enter email"
 
-                            />
-                        </div>
-                    </div>
+                        <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+                            <div>
+                                <label htmlFor="fullname" className="sr-only">Name</label>
+                                <div className="relative">
+                                    <input
+                                        id='fullname'
+                                        type="text"
+                                        ref={nameInputRef}
+                                        className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none"
+                                        placeholder="Enter Your Name"
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label htmlFor="email" className="sr-only">Email</label>
+                                <div className="relative">
+                                    <input
+                                        id='email'
+                                        type="email"
+                                        ref={emailInputRef}
+                                        className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none"
+                                        placeholder="Enter email"
 
-                    <div>
-                        <label htmlFor="password" className="sr-only">Password</label>
-                        <div className="relative">
-                            <input
-                                id='password'
-                                type="password"
-                                ref={passwordInputRef}
-                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none"
-                                placeholder="Create password"
-                                onChange={handlePasswordMatch}
-                            />
-                        </div>
-                    </div>
+                                    />
+                                </div>
+                            </div>
 
-                    <div>
-                        <label htmlFor="cPassword" className="sr-only">Confirm Password</label>
-                        <div className="relative">
-                            <input
-                                id='cPassword'
-                                type="password"
-                                ref={cPasswordInputRef}
-                                className={`w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm ${passwordMatched ? "outline-none" : "outline-red-500"}`}
-                                placeholder="Re-write the password"
-                                onChange={handlePasswordMatch}
-                            />
-                        </div>
-                    </div>
+                            <div>
+                                <label htmlFor="password" className="sr-only">Password</label>
+                                <div className="relative">
+                                    <input
+                                        id='password'
+                                        type="password"
+                                        ref={passwordInputRef}
+                                        className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none"
+                                        placeholder="Create password"
+                                        onChange={handlePasswordMatch}
+                                    />
+                                </div>
+                            </div>
 
-                    <div className="flex items-center justify-between">
-                        <p className="text-sm text-gray-500">
-                            Already have an account?
-                            <Link className="underline" href="/login">Login Here</Link>
-                        </p>
+                            <div>
+                                <label htmlFor="cPassword" className="sr-only">Confirm Password</label>
+                                <div className="relative">
+                                    <input
+                                        id='cPassword'
+                                        type="password"
+                                        ref={cPasswordInputRef}
+                                        className={`w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm ${passwordMatched ? "outline-none" : "outline-red-500"}`}
+                                        placeholder="Re-write the password"
+                                        onChange={handlePasswordMatch}
+                                    />
+                                </div>
+                            </div>
 
-                        <button
-                            type="submit"
-                            className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-                            onClick={handleUserRegister}
-                        >
-                            {loading ? "Registering" : "Register"}
-                        </button>
+                            <div className="flex items-center justify-between">
+                                <p className="text-sm text-gray-500">
+                                    Already have an account?
+                                    <Link className="underline" href="/login">Login Here</Link>
+                                </p>
+
+                                <button
+                                    type="submit"
+                                    className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+                                    onClick={handleUserRegister}
+                                >
+                                    {loading ? "Registering" : "Register"}
+                                </button>
+                            </div>
+                            <div className="flex items-center justify-between mt-10">
+                                <button
+                                    type="submit"
+                                    onClick={() => signIn()}
+                                    className="w-full inline-block rounded-lg bg-red-500 px-5 py-3 text-sm font-medium text-white"
+                                >
+                                    Continue With Google
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div className="flex items-center justify-between mt-10">
-                        <button
-                            type="submit"
-                            onClick={() => signIn()}
-                            className="w-full inline-block rounded-lg bg-red-500 px-5 py-3 text-sm font-medium text-white"
-                        >
-                            Continue With Google
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </section>
+                </section>
+            </main>
+        </>
     )
 }
 

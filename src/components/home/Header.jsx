@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { IoClose, IoMenu } from "react-icons/io5";
-import { useSession, signIn, signOut } from "next-auth/react";
+import SessionContext from "@/app/context";
 
 const Header = () => {
-  const { data: session } = useSession();
+  const { session, setSession } = useContext(SessionContext);
+
   const [showSignOut, setShowSignOut] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
@@ -25,6 +26,11 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleSignOut = () => {
+    localStorage.clear("token");
+    setSession(null);
+  };
 
   return (
     <header
@@ -68,18 +74,18 @@ const Header = () => {
           </li>
           {session ? (
             <li
-              className="h-10 w-10 rounded-full relative"
+              className="h-10 w-10 rounded-full relative cursor-pointer"
               onClick={() => setShowSignOut((prev) => !prev)}
             >
               <img
-                src={session.user.image}
+                src={session.photoURL}
                 alt="user"
                 className="object-cover rounded-full"
               />
               {showSignOut && (
                 <div
                   className="z-50 p-4 bg-gray-600 text-gray-50 absolute top-12 right-4 w-44 rounded-lg cursor-pointer"
-                  onClick={signOut}
+                  onClick={handleSignOut}
                 >
                   <p>Sign Out</p>
                 </div>
@@ -107,17 +113,17 @@ const Header = () => {
                 {session ? (
                   <li>
                     <a className="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
-                      {session.user.name}
+                      {session.fullname}
                     </a>
                   </li>
                 ) : (
                   <li>
-                    <a
+                    <Link
                       className="cursor-pointer block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
-                      onClick={signIn}
+                      href="/login"
                     >
                       Join Us
-                    </a>
+                    </Link>
                   </li>
                 )}
 
@@ -141,7 +147,7 @@ const Header = () => {
                 {session && (
                   <li>
                     <a
-                      onClick={signOut}
+                      onClick={handleSignOut}
                       className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                     >
                       Sign Out

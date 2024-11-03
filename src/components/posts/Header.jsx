@@ -1,7 +1,7 @@
 "use client";
-import { signIn, signOut, useSession } from "next-auth/react";
+import SessionContext from "@/app/context";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { FaSearch, FaTrash } from "react-icons/fa";
 import { HiCamera } from "react-icons/hi";
 import { IoClose, IoMenu } from "react-icons/io5";
@@ -12,11 +12,10 @@ const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSignOut, setShowSignOut] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session } = useSession();
   const imgRef = useRef(null);
-
   const [image, setImage] = useState(null);
   const [imgUrl, setImgUrl] = useState(null);
+  const { session, setSession } = useContext(SessionContext);
 
   const handleImageInput = (e) => {
     const file = e.target.files[0];
@@ -24,6 +23,11 @@ const Header = () => {
       setImage(file);
       setImgUrl(URL.createObjectURL(file));
     }
+  };
+
+  const handleSignOut = () => {
+    localStorage.clear("token");
+    setSession(null);
   };
 
   const handleShowMenu = () => {
@@ -71,7 +75,10 @@ const Header = () => {
                     <MdOutlineAddCircleOutline className="text-xl" />
                   </div>
                 ) : (
-                  <Link href="/login" className=" text-white hidden lg:block">
+                  <Link
+                    href="/login"
+                    className="text-white hover:text-gray-100/75 hidden lg:block"
+                  >
                     Login to create post
                   </Link>
                 )}
@@ -90,14 +97,14 @@ const Header = () => {
                   onClick={() => setShowSignOut((prev) => !prev)}
                 >
                   <img
-                    src={session.user.image}
+                    src={session.photoURL}
                     alt="user"
                     className="object-cover rounded-full"
                   />
                   {showSignOut && (
                     <div
                       className="z-50 p-4 bg-gray-600 text-gray-50 absolute top-12 right-4 w-44 rounded-lg cursor-pointer"
-                      onClick={signOut}
+                      onClick={handleSignOut}
                     >
                       <p>Sign Out</p>
                     </div>
@@ -123,17 +130,17 @@ const Header = () => {
                   {session ? (
                     <li>
                       <a className="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
-                        {session.user.name}
+                        {session.fullname}
                       </a>
                     </li>
                   ) : (
                     <li>
-                      <a
+                      <Link
                         className="cursor-pointer block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
-                        onClick={signIn}
+                        href="/login"
                       >
                         Join Us
-                      </a>
+                      </Link>
                     </li>
                   )}
                   {/* <div className="relative px-1">
@@ -166,11 +173,11 @@ const Header = () => {
                       </p>
                     </li>
                   ) : (
-                    <li onClick={signIn}>
+                    <Link href="/login">
                       <p className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                         Login To Create Post
                       </p>
-                    </li>
+                    </Link>
                   )}
                   <li>
                     <Link
@@ -192,7 +199,7 @@ const Header = () => {
                   {session && (
                     <li>
                       <a
-                        onClick={signOut}
+                        onClick={handleSignOut}
                         className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
                       >
                         Sign Out

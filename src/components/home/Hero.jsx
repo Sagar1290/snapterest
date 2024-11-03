@@ -2,10 +2,13 @@
 
 import Quotes from "./Quotes";
 import { FaArrowRight } from "react-icons/fa";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
+import SessionContext from "@/app/context";
 
 const Hero = () => {
+  const { session, setSession } = useContext(SessionContext);
+
   return (
     <section
       id="hero"
@@ -18,12 +21,21 @@ const Hero = () => {
           </p>
           <p className="px-7 text-sm lg:text-base">
             Let's{" "}
-            <Link
-              className="border rounded-md mx-2 p-2 text-white hover:bg-white/70 hover:text-gray-700"
-              href="/login"
-            >
-              Get Started
-            </Link>{" "}
+            {session ? (
+              <Link
+                className="border rounded-md mx-2 p-2 text-white hover:bg-white/70 hover:text-gray-700"
+                href="/posts"
+              >
+                Deep Dive
+              </Link>
+            ) : (
+              <Link
+                className="border rounded-md mx-2 p-2 text-white hover:bg-white/70 hover:text-gray-700"
+                href="/login"
+              >
+                Get Started
+              </Link>
+            )}
             With
           </p>
         </div>

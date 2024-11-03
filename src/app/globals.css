@@ -10,4 +10,5 @@
 .join-section {
   background-image: url("/images/camera.jpg");
   background-size: cover;
+  overflow-y: hidden;
 }

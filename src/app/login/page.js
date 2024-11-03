@@ -1,9 +1,11 @@
 'use client'
+import LoginHeader from '@/components/LoginHeader'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Notification, useToaster } from 'rsuite'
+import SessionContext from '../context'
 
 const page = () => {
     const router = useRouter()
@@ -11,6 +13,7 @@ const page = () => {
     const emailInputRef = useRef(null)
     const passwordInputRef = useRef(null)
     const [loading, setLoading] = useState(false);
+    const { session, setSession } = useContext(SessionContext);
 
     const handleUserLogin = async (e) => {
         e.preventDefault();
@@ -54,7 +57,8 @@ const page = () => {
 
             const response = await res.json();
             localStorage.setItem("token", response.token)
-            localStorage.setItem("session", response.data)
+
+            setSession(response.data)
 
             emailInputRef.current.value = "";
             passwordInputRef.current.value = "";
@@ -79,76 +83,75 @@ const page = () => {
         }
     }
 
-    const handleGoogleLogin = async (e) => {
-        const res = await signIn();
-        console.log(res)
-        router.push('/')
-    }
-
     return (
-        <section className="join-section relative flex flex-wrap h-screen items-center bg-red-200">
-            <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
-                <div className="mx-auto max-w-lg text-center">
-                    <h1 className="text-2xl font-bold sm:text-3xl">Get started today!</h1>
-                    <p className="mt-4 text-gray-500">
-                        Where Art Meets the Lens
-                    </p>
-                </div>
-
-                <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
-                    <div>
-                        <label htmlFor="email" className="sr-only">Email</label>
-                        <div className="relative">
-                            <input
-                                type="email"
-                                id='email'
-                                ref={emailInputRef}
-                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                                placeholder="Enter email"
-                            />
+        <>
+            <LoginHeader />
+            <main>
+                <section className="join-section relative flex flex-wrap h-screen items-center bg-red-200">
+                    <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
+                        <div className="mx-auto max-w-lg text-center">
+                            <h1 className="text-2xl font-bold sm:text-3xl">Get started today!</h1>
+                            <p className="mt-4 text-gray-500">
+                                Where Art Meets the Lens
+                            </p>
                         </div>
-                    </div>
 
-                    <div>
-                        <label htmlFor="password" className="sr-only">Password</label>
-                        <div className="relative">
-                            <input
-                                type="password"
-                                id='password'
-                                ref={passwordInputRef}
-                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                                placeholder="Enter password"
-                            />
-                        </div>
-                    </div>
+                        <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+                            <div>
+                                <label htmlFor="email" className="sr-only">Email</label>
+                                <div className="relative">
+                                    <input
+                                        type="email"
+                                        id='email'
+                                        ref={emailInputRef}
+                                        className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                        placeholder="Enter email"
+                                    />
+                                </div>
+                            </div>
 
-                    <div className="flex items-center justify-between">
-                        <p className="text-sm text-gray-500">
-                            No account?
-                            <Link className="underline" href="/register">Sign up</Link>
-                        </p>
+                            <div>
+                                <label htmlFor="password" className="sr-only">Password</label>
+                                <div className="relative">
+                                    <input
+                                        type="password"
+                                        id='password'
+                                        ref={passwordInputRef}
+                                        className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                        placeholder="Enter password"
+                                    />
+                                </div>
+                            </div>
 
-                        <button
-                            type="submit"
-                            onClick={handleUserLogin}
-                            className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-                        >
-                            {loading ? "Logging in" : "Login"}
-                        </button>
-                    </div>
-                    <div className="flex items-center justify-between mt-10">
-                        <button
-                            type="submit"
-                            onClick={() => signIn()}
-                            className="w-full inline-block rounded-lg bg-red-500 px-5 py-3 text-sm font-medium text-white"
-                        >
-                            Continue With Google
-                        </button>
-                    </div>
-                </form>
-            </div >
+                            <div className="flex items-center justify-between">
+                                <p className="text-sm text-gray-500">
+                                    No account?
+                                    <Link className="underline" href="/register">Sign up</Link>
+                                </p>
 
-        </section >
+                                <button
+                                    type="submit"
+                                    onClick={handleUserLogin}
+                                    className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+                                >
+                                    {loading ? "Logging in" : "Login"}
+                                </button>
+                            </div>
+                            <div className="flex items-center justify-between mt-10">
+                                <button
+                                    type="submit"
+                                    onClick={() => signIn()}
+                                    className="w-full inline-block rounded-lg bg-red-500 px-5 py-3 text-sm font-medium text-white"
+                                >
+                                    Continue With Google
+                                </button>
+                            </div>
+                        </form>
+                    </div >
+                </section>
+            </main>
+        </>
+
     )
 }
 
