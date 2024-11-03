@@ -8,11 +8,6 @@ import { useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'snapterest',
-  description: 'A perfect ',
-}
-
 export default function RootLayout({ children }) {
   const [session, setSession] = useState(null);
   return (

@@ -7,6 +7,10 @@ import Posts from "@/components/home/Posts";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+export const metadata = {
+    title: 'snapterest',
+    description: 'A perfect ',
+}
 
 const Home = () => {
     return (
