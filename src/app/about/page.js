@@ -10,9 +10,9 @@ const AboutUs = () => {
             <LoginHeader />
             <section className="w-full min-h-screen flex flex-col gap-10 py-28 px-8 lg:px-20 bg-red-200">
                 <div className="text-center">
-                    <h1 className="text-4xl lg:text-6xl font-bold tracking-wider mb-4 font-mono">About Snapterest</h1>
+                    <h1 className="text-4xl lg:text-6xl font-bold tracking-wider mb-4 font-mono">About Snapverse</h1>
                     <p className="text-lg lg:text-xl max-w-3xl mx-auto">
-                        At Snapterest, we believe that every photograph tells a unique story, and every perspective deserves to be seen.
+                        At Snapverse, we believe that every photograph tells a unique story, and every perspective deserves to be seen.
                         Our mission is to create a dynamic space where photographers of all backgrounds can share, inspire, and connect through their art.
                     </p>
                 </div>
@@ -22,7 +22,7 @@ const AboutUs = () => {
                         <FaCamera className="text-5xl lg:text-7xl text-blue-500 mb-4" />
                         <h2 className="text-2xl font-semibold text-orange-500 font-mono">Capture Moments</h2>
                         <p className="text-base lg:text-lg mt-2">
-                            Snapterest allows you to showcase your work and discover captivating photography from others around the world.
+                            Snapverse allows you to showcase your work and discover captivating photography from others around the world.
                         </p>
                     </div>
 
@@ -38,7 +38,7 @@ const AboutUs = () => {
                         <FaShareAlt className="text-5xl lg:text-7xl text-yellow-500 mb-4" />
                         <h2 className="text-2xl font-semibold text-orange-500 font-mono">Share & Inspire</h2>
                         <p className="text-base lg:text-lg mt-2">
-                            Inspire others with your vision and creativity, and be inspired by the diverse perspectives shared on Snapterest.
+                            Inspire others with your vision and creativity, and be inspired by the diverse perspectives shared on Snapverse.
                         </p>
                     </div>
                 </div>

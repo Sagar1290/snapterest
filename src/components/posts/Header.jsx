@@ -7,23 +7,15 @@ import { HiCamera } from "react-icons/hi";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import Modal from "react-modal";
+import CreatePostModal from "./CreatePostModal";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSignOut, setShowSignOut] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const imgRef = useRef(null);
-  const [image, setImage] = useState(null);
-  const [imgUrl, setImgUrl] = useState(null);
-  const { session, setSession } = useContext(SessionContext);
 
-  const handleImageInput = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-      setImgUrl(URL.createObjectURL(file));
-    }
-  };
+  const { session, setSession } = useContext(SessionContext);
+  setSession(true);
 
   const handleSignOut = () => {
     localStorage.clear("token");
@@ -34,9 +26,6 @@ const Header = () => {
     setShowMenu((prev) => !prev);
   };
 
-  const handleImageUpload = (e) => {
-    e.preventDefault();
-  };
   return (
     <header className="bg-black w-full fixed top-0 p-6 z-50 transition-all duration-300">
       <div className="flex items-center justify-between">
@@ -45,7 +34,7 @@ const Header = () => {
             href="/"
             className="text-white text-2xl font-bold tracking-[10px] hover:no-underline hover:text-gray-100/75"
           >
-            SNAPTEREST
+            SNAPVERSE
           </Link>
         </div>
 
@@ -218,64 +207,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      {isOpen && (
-        <Modal
-          isOpen={isOpen}
-          onRequestClose={() => setIsOpen(false)}
-          ariaHideApp={false}
-          className="bg-red-200 shadow-md w-[90%] max-w-lg p-6 rounded-md absolute top-40 left-1/2 -translate-x-1/2"
-        >
-          <form className="flex flex-col items-center justify-center gap-2 outline-none">
-            <input
-              type="file"
-              ref={imgRef}
-              className="hidden outline-none focus:outline-none"
-              onChange={handleImageInput}
-              accept="image/*"
-            />
-            {image ? (
-              <img
-                src={imgUrl}
-                alt="selected image"
-                className="h-44 w-44 object-contain"
-              />
-            ) : (
-              <HiCamera
-                className="text-7xl text-gray-500 cursor-pointer hover:brightness-110"
-                onClick={() => imgRef.current.click()}
-              />
-            )}
-            <input
-              placeholder="Enter your caption..."
-              maxLength="150"
-              className="bg-white rounded-lg text-gray-800 w-[80%] focus:ring-0 outline-none text-center p-4 my-2"
-              type="text"
-            />
-            <button
-              type="submit"
-              onClick={handleImageUpload}
-              className="py-2 px-4 bg-red-600 disabled:bg-gray-400 text-white rounded-lg disabled:cursor-not-allowed hover:brightness-110 disabled:hover:brightness-100"
-            >
-              Upload Post
-            </button>
-            <div className="absolute top-4 right-4 flex flex-row items-center gap-2">
-              {image && (
-                <FaTrash
-                  className="cursor-pointer text-lg hover:text-red-600 transition duration-300"
-                  onClick={() => {
-                    setImage(null);
-                    setImgUrl(null);
-                  }}
-                />
-              )}
-              <IoClose
-                className="cursor-pointer text-2xl hover:text-red-600 transition duration-300"
-                onClick={() => setIsOpen(false)}
-              />
-            </div>
-          </form>
-        </Modal>
-      )}
+      {isOpen && <CreatePostModal isOpen={isOpen} setIsOpen={setIsOpen} />}
     </header>
   );
 };

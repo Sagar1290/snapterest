@@ -46,7 +46,7 @@ const Header = () => {
             className="text-white text-2xl font-bold tracking-[10px] hover:no-underline hover:text-gray-100/75"
             href="/"
           >
-            SNAPTEREST
+            SNAPVERSE
           </Link>
         </div>
       ) : (

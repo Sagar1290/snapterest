@@ -40,7 +40,7 @@ const Hero = () => {
           </p>
         </div>
         <div className="w-[55%] px-7 lg:px-7 pt-11 pb-4 text-white text-2xl font-bold tracking-[10px] lg:border-b lg:border-white/60">
-          SNAPTEREST
+          SNAPVERSE
         </div>
         <p className="p-4 lg:p-7 font-serif text-5xl lg:text-7xl text-white flex flex-col gap-4">
           <span>A HotSpot for</span>

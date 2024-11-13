@@ -31,7 +31,7 @@ const Footer = () => {
         <div className="lg:flex lg:items-end lg:justify-between">
           <div>
             <div className="flex justify-center text-teal-100 lg:justify-start text-2xl font-bold tracking-[10px]">
-              SNAPTEREST
+              SNAPVERSE
             </div>
 
             <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 lg:text-left">
