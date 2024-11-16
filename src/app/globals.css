@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "rsuite/dist/rsuite.css";
 
 .hero-section {
   background-image: url("/images/helmet.jpg");
@@ -10,5 +11,5 @@
 .join-section {
   background-image: url("/images/camera.jpg");
   background-size: cover;
-  overflow-y: hidden;
+  background-attachment: fixed;
 }
