@@ -2,11 +2,8 @@
 import SessionContext from "@/app/context";
 import Link from "next/link";
 import React, { useContext, useRef, useState } from "react";
-import { FaSearch, FaTrash } from "react-icons/fa";
-import { HiCamera } from "react-icons/hi";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
-import Modal from "react-modal";
 import CreatePostModal from "./CreatePostModal";
 
 const Header = () => {
@@ -14,12 +11,13 @@ const Header = () => {
   const [showSignOut, setShowSignOut] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { session, setSession } = useContext(SessionContext);
-  setSession(true);
-
+  let session;
+  if (typeof window !== "undefined") {
+    session = JSON.parse(localStorage.getItem("session"));
+  }
   const handleSignOut = () => {
     localStorage.clear("token");
-    setSession(null);
+    localStorage.clear("session")
   };
 
   const handleShowMenu = () => {
@@ -27,7 +25,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-black w-full fixed top-0 p-6 z-50 transition-all duration-300">
+    <header className="bg-black w-full fixed top-0 p-6 z-50 transition-all duration-300 h-20" >
       <div className="flex items-center justify-between">
         <div>
           <Link
@@ -86,7 +84,7 @@ const Header = () => {
               </li>
               {session ? (
                 <li
-                  className="h-10 w-10 rounded-full relative cursor-pointer"
+                  className="h-8 w-8 rounded-full relative cursor-pointer"
                   onClick={() => setShowSignOut((prev) => !prev)}
                 >
                   <img

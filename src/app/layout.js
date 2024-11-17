@@ -1,6 +1,7 @@
 "use client"
 import './globals.css'
 import 'rsuite/dist/rsuite.min.css';
+import 'rsuite/dist/rsuite-no-reset.min.css';
 import { Inter } from 'next/font/google'
 import SessionContext from './context';
 import { useState } from 'react';

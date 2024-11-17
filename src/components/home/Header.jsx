@@ -1,11 +1,14 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { IoClose, IoMenu } from "react-icons/io5";
-import SessionContext from "@/app/context";
 
 const Header = () => {
-  const { session, setSession } = useContext(SessionContext);
+  let session;
+  if (typeof window !== "undefined") {
+    session = JSON.parse(localStorage.getItem("session"));
+  }
 
   const [showSignOut, setShowSignOut] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -29,7 +32,8 @@ const Header = () => {
 
   const handleSignOut = () => {
     localStorage.clear("token");
-    setSession(null);
+    localStorage.clear("session")
+    // setSession(null);
   };
 
   return (
@@ -38,7 +42,7 @@ const Header = () => {
         scrollPosition >= 600
           ? "bg-black justify-between"
           : "bg-transparent justify-end"
-      } w-full fixed top-0 flex items-center p-6 z-50 transition-all duration-300`}
+      } w-full fixed top-0 flex items-center p-6 z-50 transition-all duration-300 h-20`}
     >
       {scrollPosition >= 600 ? (
         <div>
@@ -74,7 +78,7 @@ const Header = () => {
           </li>
           {session ? (
             <li
-              className="h-10 w-10 rounded-full relative cursor-pointer"
+              className="h-8 w-8 rounded-full relative cursor-pointer"
               onClick={() => setShowSignOut((prev) => !prev)}
             >
               <img
@@ -83,12 +87,12 @@ const Header = () => {
                 className="object-cover rounded-full"
               />
               {showSignOut && (
-                <div
+                <li
                   className="z-50 p-4 bg-gray-600 text-gray-50 absolute top-12 right-4 w-44 rounded-lg cursor-pointer"
                   onClick={handleSignOut}
                 >
                   <p>Sign Out</p>
-                </div>
+                </li>
               )}
             </li>
           ) : (

@@ -7,7 +7,10 @@ import { useContext, useEffect, useState } from "react";
 import SessionContext from "@/app/context";
 
 const Hero = () => {
-  const { session, setSession } = useContext(SessionContext);
+  let session;
+  if (typeof window !== "undefined") {
+    session = JSON.parse(localStorage.getItem("session"));
+  }
 
   return (
     <section

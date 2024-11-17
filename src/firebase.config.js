@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
+import {getStorage} from "firebase/storage"
 
 const firebaseConfig = {
-    apiKey: NEXT_PUBLIC_FIREBASE_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: "snapterest.firebaseapp.com",
     projectId: "snapterest",
     storageBucket: "snapterest.appspot.com",
@@ -11,5 +12,6 @@ const firebaseConfig = {
     measurementId: "G-3KN9E3ZCM4"
 };
 
-const app = initializeApp(firebaseConfig);
-export const analytics = getAnalytics(app);
+export const app = initializeApp(firebaseConfig);
+export const storage = getStorage(app)
+// export const analytics = getAnalytics(app);

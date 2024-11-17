@@ -3,7 +3,7 @@ import React from "react";
 
 const LoginHeader = () => {
   return (
-    <header className="bg-black w-full fixed top-0 p-6 z-50 transition-all duration-300">
+    <header className="bg-black w-full fixed top-0 p-6 z-50 transition-all duration-300 h-20">
       <div className="flex items-center justify-between">
         <div>
           <Link
