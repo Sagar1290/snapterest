@@ -5,8 +5,13 @@ import Link from "next/link";
 import { IoClose, IoMenu } from "react-icons/io5";
 
 const Header = () => {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
   let session;
-  if (typeof window !== "undefined") {
+  if (isClient) {
     session = JSON.parse(localStorage.getItem("session"));
   }
 
@@ -32,7 +37,7 @@ const Header = () => {
 
   const handleSignOut = () => {
     localStorage.clear("token");
-    localStorage.clear("session")
+    localStorage.clear("session");
     // setSession(null);
   };
 

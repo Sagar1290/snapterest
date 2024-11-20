@@ -1,88 +1,121 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-
-const postData = [
-  {
-    image: "/images/1000/image1.jpg",
-    author: "Sagar Prajapati",
-    location: "India",
-  },
-  {
-    image: "/images/bg-red.png",
-    author: "sam kohli",
-    location: "India",
-  },
-  {
-    image: "/images/1000/image4.jpg",
-    author: "Jacob Owens",
-    location: "Aus",
-  },
-  {
-    image: "/images/bottle.jpg",
-    author: "Annie Sprat",
-    location: "London",
-  },
-  {
-    image: "/images/1000/image5.jpg",
-    author: "Li Shanting",
-    location: "Nepal",
-  },
-  {
-    image: "/images/1000/image7.jpg",
-    author: "Tim Massholder",
-    location: "Russia",
-  },
-  {
-    image: "/images/1000/image3.jpg",
-    author: "Kylee Lucas",
-    location: "Thailand",
-  },
-  {
-    image: "/images/image11.jpg",
-    author: "Krishnan Swami",
-    location: "India",
-  },
-  {
-    image: "/images/image10.jpg",
-    author: "Pal Lucas",
-    location: "Mongolia",
-  },
-  {
-    image: "/images/image14.jpg",
-    author: "Mohammad Nohassi",
-    location: "India",
-  },
-  {
-    image: "/images/image12.jpg",
-    author: "Anuj Yadav",
-    location: "India",
-  },
-  {
-    image: "/images/image15.jpg",
-    author: "Elena saidey",
-    location: "New York",
-  },
-  {
-    image: "/images/image16.jpg",
-    author: "Fer Nando",
-    location: "Guinea",
-  },
-];
+import Image from "next/image";
+import { Pagination } from "rsuite";
 
 const Display = () => {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  let session;
+  if (isClient) {
+    session = JSON.parse(localStorage.getItem("session"));
+  }
+  const currentUser = session?.user
+  const [postData, setPostData] = useState();
+  const [loading, setLoading] = useState(false);
+  const [activePage, setActivePage] = useState(1);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchPostData = async () => {
+      const postData = await getPostData();
+      setPostData(postData);
+      setLoading(false);
+    };
+    fetchPostData();
+  }, []);
+
+  const getPostData = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/getPost`
+      );
+      if (!res.ok) {
+        showNotification(
+          "error",
+          "Network Error",
+          "Error while fetching posts!!"
+        );
+        return;
+      }
+      const data = await res.json();
+
+      return data["data"];
+    } catch (error) {
+      console.log(error);
+      showNotification(
+        "error",
+        "Network Error",
+        error.message || "An unexpected error occurred. Please try again later."
+      );
+      return;
+    }
+  };
+
+  const showNotification = (type, header, message) => {
+    const notification = (
+      <Notification type={type} header={header} closable>
+        {message}
+      </Notification>
+    );
+    toaster.push(notification, {
+      placement: "topEnd",
+      duration: 2000,
+    });
+  };
+
   return (
     <section className="w-full bg-red-200 py-24">
-      <ResponsiveMasonry
-        columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1800: 4 }}
-      >
-        <Masonry>
-          {postData.map((post, id) => {
-            return <Card key={id} post={post} />;
-          })}
-        </Masonry>
-      </ResponsiveMasonry>
+      {loading ? (
+        <div className="h-screen flex flex-col justify-center items-center opacity-80">
+          <Image
+            height={200}
+            width={200}
+            src="/images/CameraLoading.png"
+            alt="camera-loading-image"
+            className="w-16 h-16 md:h-24 md:l-24 lg:h-48 lg:w-48 cover animate-bounce"
+          />
+          <p className="mt-4 text-green text-3xl leading-loose">
+            Please wait, loading...
+          </p>
+        </div>
+      ) : (
+        <div>
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{
+              350: 1,
+              750: 2,
+              900: 3,
+              1250: 4,
+              1600: 5,
+            }}
+          >
+            <Masonry>
+              {postData?.map((post, id) => {
+                return <Card key={id} post={post} currentUser={session}/>;
+              })}
+            </Masonry>
+          </ResponsiveMasonry>
+          <div className="mt-10 w-full flex justify-center">
+            <Pagination
+              prev
+              last
+              next
+              first
+              size="lg"
+              total={20}
+              limit={6}
+              activePage={activePage}
+              onChangePage={setActivePage}
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 };

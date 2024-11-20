@@ -215,7 +215,9 @@ const CreatePostModal = (props) => {
           <img
             src={imgUrl}
             alt="selected image"
-            className="h-44 w-44 object-contain"
+            className={`h-44 w-44 object-contain ${
+              isUploading ? "animate-pulse" : ""
+            }`}
           />
         ) : (
           <HiCamera

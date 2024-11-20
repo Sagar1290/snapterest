@@ -3,12 +3,16 @@
 import Quotes from "./Quotes";
 import { FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import SessionContext from "@/app/context";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   let session;
-  if (typeof window !== "undefined") {
+  if (isClient) {
     session = JSON.parse(localStorage.getItem("session"));
   }
 
