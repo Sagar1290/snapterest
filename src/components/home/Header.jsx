@@ -38,7 +38,6 @@ const Header = () => {
   const handleSignOut = () => {
     localStorage.clear("token");
     localStorage.clear("session");
-    // setSession(null);
   };
 
   return (
@@ -52,7 +51,7 @@ const Header = () => {
       {scrollPosition >= 600 ? (
         <div>
           <Link
-            className="text-white text-2xl font-bold tracking-[10px] hover:no-underline hover:text-gray-100/75"
+            className="text-white text-2xl font-bold tracking-[10px] no-underline hover:no-underline hover:text-gray-100/75"
             href="/"
           >
             SNAPVERSE
@@ -103,7 +102,7 @@ const Header = () => {
           ) : (
             <Link
               className="text-white hover:text-gray-100/75 hover:cursor-pointer"
-              href="/login"
+              href="/login?redirect=home"
             >
               <span>Join Us</span>
             </Link>
@@ -129,7 +128,7 @@ const Header = () => {
                   <li>
                     <Link
                       className="cursor-pointer block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
-                      href="/login"
+                      href="/login?redirect=home"
                     >
                       Join Us
                     </Link>

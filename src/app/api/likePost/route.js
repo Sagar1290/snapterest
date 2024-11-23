@@ -20,7 +20,9 @@ export async function POST(request) {
       ? { $push: { likedBy: { user: decoded.userID } } }
       : { $pull: { likedBy: { user: decoded.userID } } };
 
-    const post = await Post.findByIdAndUpdate(postId, update, { new: true });
+    const post = await Post.findOneAndUpdate({ _id: postId }, update, {
+      new: true,
+    });
 
     return NextResponse.json(
       { data: "Post Liked Successfully" },

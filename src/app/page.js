@@ -9,7 +9,7 @@ import "aos/dist/aos.css";
 
 export const metadata = {
     title: 'snapverse',
-    description: 'A perfect ',
+    description: 'A Hotspot for Photographers. The world needs your perspective.',
 }
 
 const Home = () => {

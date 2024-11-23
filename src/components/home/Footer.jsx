@@ -30,9 +30,9 @@ const Footer = () => {
 
         <div className="lg:flex lg:items-end lg:justify-between">
           <div>
-            <div className="flex justify-center text-teal-100 lg:justify-start text-2xl font-bold tracking-[10px]">
+            <Link className="flex justify-center text-white lg:justify-start text-2xl font-bold tracking-[10px] hover:text-gray-100/75 hover:no-underline" href="/">
               SNAPVERSE
-            </div>
+            </Link>
 
             <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 lg:text-left">
               Capture your world, share your vision, connect with like-minded
@@ -44,7 +44,7 @@ const Footer = () => {
             <li>
               <Link
                 className="text-gray-100 transition hover:text-gray-100/75"
-                href="#"
+                href="/about"
               >
                 {" "}
                 About{" "}
@@ -54,10 +54,10 @@ const Footer = () => {
             <li>
               <Link
                 className="text-gray-100 transition hover:text-gray-100/75"
-                href="#"
+                href="/post"
               >
                 {" "}
-                Services{" "}
+                Posts{" "}
               </Link>
             </li>
 

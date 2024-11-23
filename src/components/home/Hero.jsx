@@ -38,7 +38,7 @@ const Hero = () => {
             ) : (
               <Link
                 className="border rounded-md mx-2 p-2 text-white hover:bg-white/70 hover:text-gray-700"
-                href="/login"
+                href="/login?redirect=home"
               >
                 Get Started
               </Link>

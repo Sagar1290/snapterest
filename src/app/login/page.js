@@ -2,7 +2,7 @@
 import LoginHeader from "@/components/LoginHeader";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useContext, useRef, useState } from "react";
 import { Notification, useToaster } from "rsuite";
 
@@ -12,6 +12,8 @@ const page = () => {
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const query = useSearchParams();
+  const redirect = query.get("redirect");
 
   const handleUserLogin = async (e) => {
     e.preventDefault();
@@ -67,7 +69,7 @@ const page = () => {
         "User successfully logged in!"
       );
       setLoading(false);
-      router.push("/");
+      router.push(`/${redirect}`);
     } catch (error) {
       showNotification(
         "error",

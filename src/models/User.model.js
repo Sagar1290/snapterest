@@ -17,6 +17,10 @@ const userSchema = mongoose.Schema({
     photoURL: {
         type: String,
         default: "https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg"
+    },
+    role : {
+        type: String,
+        default: "user"
     }
 }, { timestamps: true })
 

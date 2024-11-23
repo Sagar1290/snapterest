@@ -5,13 +5,13 @@ import { PiShareFatFill } from "react-icons/pi";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { CiLocationOn } from "react-icons/ci";
 import { Notification, useToaster } from "rsuite";
+import PostModal from "./PostModal";
 
 const Card = ({ post, currentUser }) => {
   const toaster = useToaster();
   const [likes, setLikes] = useState();
   const [liked, setLiked] = useState(false);
-  const [comments, setComments] = useState();
-  const [showCaption, setShowCaption] = useState(false);
+  const [showPostModal, setShowPostModal] = useState(false);
 
   const handleLikeClick = async () => {
     const token = localStorage.getItem("token");
@@ -63,18 +63,23 @@ const Card = ({ post, currentUser }) => {
   };
 
   useEffect(() => {
-    if(!currentUser) {
-      setLiked(false) 
+    setLikes(post.likedBy.length);
+    if (!currentUser) {
+      setLiked(false);
       return;
     }
-    setLikes(post.likedBy.length);
+
     if (currentUser?.fullname) {
-      const hasLiked = post.likedBy?.some(
-        (obj) => obj.user.fullname === currentUser.fullname
+      const hasLiked = post?.likedBy?.some(
+        (obj) => obj?.user?.fullname === currentUser.fullname
       );
       setLiked(hasLiked);
     }
   }, [post, currentUser]);
+
+  const handlePostModalOpen = () => {
+    setShowPostModal(true);
+  };
 
   return (
     <div className="border-black bg-white rounded-xl w-[95%] max-w-md mx-auto mb-2 h-auto">
@@ -96,6 +101,7 @@ const Card = ({ post, currentUser }) => {
       </div>
       <div className="w-full rounded-xl">
         <Image
+          onClick={handlePostModalOpen}
           src={post.imageURL}
           alt="post"
           height={1024}
@@ -122,6 +128,7 @@ const Card = ({ post, currentUser }) => {
           <PiShareFatFill size={20} />
         </div>
       </div>
+      {showPostModal && <PostModal showPostModal={showPostModal} setShowPostModal={setShowPostModal} postData={post} />}
     </div>
   );
 };

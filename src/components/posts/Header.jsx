@@ -72,8 +72,8 @@ const Header = () => {
                   </div>
                 ) : (
                   <Link
-                    href="/login"
-                    className="text-white hover:text-gray-100/75 hidden lg:block"
+                  className="text-white hover:text-gray-100/75 hidden lg:block"
+                  href="/login?redirect=posts"
                   >
                     Login to create post
                   </Link>
@@ -109,7 +109,7 @@ const Header = () => {
               ) : (
                 <Link
                   className="text-white hover:text-gray-100/75 hover:cursor-pointer"
-                  href="/login"
+                  href="/login?redirect=posts"
                 >
                   <span>Join Us</span>
                 </Link>
@@ -133,7 +133,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="cursor-pointer block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
-                        href="/login"
+                        href="/login?redirect=posts"
                       >
                         Join Us
                       </Link>
@@ -169,7 +169,7 @@ const Header = () => {
                       </p>
                     </li>
                   ) : (
-                    <Link href="/login">
+                    <Link href="/login?redirect=posts">
                       <p className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                         Login To Create Post
                       </p>
