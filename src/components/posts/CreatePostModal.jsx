@@ -142,10 +142,22 @@ const CreatePostModal = (props) => {
         }
       );
 
+      
+      if(response.status == 401){
+        const errorMessage = (
+          <Notification type="error" header="Session Expired" closable>
+            Your session has expired. Please log in again to continue.
+          </Notification>
+        );
+        toaster.push(errorMessage, {
+          placement: "topEnd",
+          duration: 3 * 1000,
+        });
+      }
+      
       if (!response.ok) {
         throw new Error("Failed to create post");
       }
-
       const createdPost = await response.json();
       setIsOpen(false);
       setImage(null);

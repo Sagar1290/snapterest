@@ -5,19 +5,19 @@ import Post from "@/models/Post.model";
 
 export async function POST(request) {
   try {
-    await connectToDb();
-
+    
     const authHeader = request.headers.get("Authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return new Response("Unauthorized: No token provided", { status: 401 });
     }
-
+    
     const token = authHeader.split(" ")[1]; // Remove 'Bearer ' part
     const decoded = verifyToken(token);
     const {imageURL, caption, location} = await request.json()
     if (!imageURL) {
       return new Response("Image is Required to Create Post", { status: 404 });
     }
+    await connectToDb();
     const newPost = new Post({
       user: decoded.userID,
       imageURL: imageURL,

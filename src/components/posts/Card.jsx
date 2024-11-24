@@ -106,7 +106,7 @@ const Card = ({ post, currentUser }) => {
           alt="post"
           height={1024}
           width={1024}
-          className="w-full rounded-xl object-cover lg:max-h-[550px]"
+          className="w-full rounded-xl object-cover lg:max-h-[550px] cursor-pointer"
         />
       </div>
 

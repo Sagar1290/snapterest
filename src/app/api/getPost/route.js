@@ -8,16 +8,16 @@ export async function GET(request) {
     const url = new URL(request.url);
     const limit = parseInt(url.searchParams.get("limit")) || 30;
     const page = parseInt(url.searchParams.get("page")) || 1;
-    const sort = url.searchParams.get("sort") || "createdAt";
-    const order = url.searchParams.get("order") || "desc";
+    // const sort = url.searchParams.get("sort") || "createdAt";
+    // const order = url.searchParams.get("order") || "desc";
 
     const startIndex = (page - 1) * limit;
 
     const posts = await Post.find()
-      .sort({ [sort]: order })
+      .sort({ createdAt: -1 })
       .limit(limit)
       .skip(startIndex)
-      .populate("user", "fullname") 
+      .populate("user", "fullname photoURL")
       .populate("likedBy.user", "fullname");
 
     const totalPosts = await Post.countDocuments();
