@@ -35,15 +35,7 @@ export async function POST(request) {
 
 export async function GET(request) {
   try {
-    const authHeader = request.headers.get("Authorization");
-
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return new Response("Unauthorized: No token provided", { status: 401 });
-    }
-
-    const token = authHeader.split(" ")[1];
-    const decoded = verifyToken(token);
-
+    
     await connectToDb();
 
     const url = new URL(request.url);

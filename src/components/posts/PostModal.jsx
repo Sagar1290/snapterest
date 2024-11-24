@@ -7,20 +7,29 @@ import CommentSection from "./CommentSection";
 const PostModal = (props) => {
   const { showPostModal, setShowPostModal, postData } = { ...props };
 
-  const toaster = useToaster();
-
   const handleClose = () => setShowPostModal(false);
 
   const availableTags = [
     "Photography",
-    "Wedding",
     "Nature",
+    "photooftheday",
+    "landscape",
+    "filmisnotdead",
+    "portrait",
+    "streetphotography",
+    "hdr",
+    "wildlife",
+    "naturephotography",
     "Art",
-    "Travel",
-    "Adventure",
-    "Food",
-    "Music",
-    "Technology",
+    "travelphotography",
+    "foodphotography",
+    "blackandwhite",
+    "highcontrast",
+    "nightphotography",
+    "photoshop",
+    "lightroom",
+    "filters",
+    "dslr",
   ];
 
   const generateRandomTags = () => {
@@ -28,13 +37,15 @@ const PostModal = (props) => {
     return shuffledTags.slice(0, 4);
   };
 
+  const tags = postData?.tags.length > 0 ? postData.tags : generateRandomTags();
+
   return (
     <Modal size={"lg"} open={showPostModal} onClose={handleClose}>
       <Modal.Header closeButton={true} />
       <section>
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2  md:gap-8">
-            <div>
+            <div className="order-2 md:-order-1">
               <div className="max-w-lg md:max-w-none">
                 <div className="mt-4 flex items-center gap-4">
                   <Image
@@ -50,7 +61,7 @@ const PostModal = (props) => {
                     </h3>
 
                     <div className="mt-4 flex flex-wrap gap-1">
-                      {generateRandomTags().map((tag, index) => (
+                      {tags.map((tag, index) => (
                         <span
                           key={index}
                           className="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-xs text-purple-600"
@@ -63,7 +74,9 @@ const PostModal = (props) => {
                 </div>
                 {postData.caption && (
                   <div className="mt-8 flex flex-row items-start gap-4">
-                    <TfiThought size={28} />
+                    <div>
+                      <TfiThought size={24} />
+                    </div>
                     <p className="text-gray-700">{postData.caption}</p>
                   </div>
                 )}

@@ -11,20 +11,7 @@ const CommentSection = ({ postData }) => {
   useEffect(() => {
     const getComments = async () => {
       setLoading(true);
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        const errorMessage = (
-          <Notification type="error" header="Authorization Required" closable>
-            You need to be logged in to add comment. Please log in to continue.
-          </Notification>
-        );
-        toaster.push(errorMessage, {
-          placement: "topEnd",
-          duration: 3 * 1000,
-        });
-        return;
-      }
+      
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/comment?post=${postData._id}`,
@@ -32,24 +19,11 @@ const CommentSection = ({ postData }) => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
             },
           }
         );
-        if (res.status == 401) {
-          const errorMessage = (
-            <Notification type="error" header="Session Expired" closable>
-              Your session has expired. Please log in again to continue.
-            </Notification>
-          );
-          toaster.push(errorMessage, {
-            placement: "topEnd",
-            duration: 3 * 1000,
-          });
-          return;
-        }
         if (!res.ok) {
-          throw new Error("Failed to comment");
+          throw new Error("Failed to Load comment");
         }
         const data = await res.json();
         setComments(data["data"]);
@@ -63,7 +37,8 @@ const CommentSection = ({ postData }) => {
     getComments();
   }, [postData._id]);
 
-  const handleCommentSubmit = async () => {
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
     const newComment = newCommentRef.current.value;
     if (!newComment.trim()) {
       const errorMessage = (

@@ -21,17 +21,18 @@ const postSchema = mongoose.Schema({
     likedBy: [{
         user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            unique: true
         },
         likedAt: {
             type: Date,
             default: Date.now
         }
-    }],    
-    commentedBy:  [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment'
     }],
+    tags: [{
+        type: String,
+        default: ["photography"]
+    }]
 }, { timestamps: true })
 
 const Post = mongoose.models.Post || mongoose.model('Post', postSchema);

@@ -1,16 +1,18 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Card from "./Card";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Image from "next/image";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { PostContext } from "@/app/context";
 
 const Display = () => {
   const [isClient, setIsClient] = useState(false);
-  const [postData, setPostData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const { postData, setPostData } = useContext(PostContext);
+  const [fetchingPost, setFetchingPost] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+
   let session;
   if (isClient) {
     session = JSON.parse(localStorage.getItem("session"));
@@ -26,8 +28,8 @@ const Display = () => {
   }, [isClient]);
 
   const fetchPosts = async () => {
-    if (loading) return;
-    setLoading(true);
+    if (fetchingPost) return;
+    setFetchingPost(true);
 
     try {
       const response = await fetch(
@@ -48,31 +50,27 @@ const Display = () => {
     } catch (error) {
       console.error("Error fetching posts:", error);
     } finally {
-      setLoading(false);
+      setFetchingPost(false);
     }
-  };
-
-  const fetchMoreData = () => {
-    setPage((prevPage) => prevPage + 1);
   };
 
   return (
     <section className="w-full bg-red-200 py-24">
       <InfiniteScroll
-        dataLength={postData.length} // Length of the current data
-        next={fetchPosts} // Function to call to load more data
-        hasMore={hasMore} // If there are more items to load
+        dataLength={postData.length}
+        next={fetchPosts}
+        hasMore={hasMore}
         loader={
           <div className="h-screen flex flex-col justify-center items-center opacity-80">
             <Image
               height={200}
               width={200}
               src="/images/CameraLoading.png"
-              alt="camera-loading-image"
+              alt="camera-fetchingPost-image"
               className="w-16 h-16 md:h-24 md:l-24 lg:h-40 lg:w-40 cover animate-bounce"
             />
             <p className="mt-4 text-green text-3xl leading-loose">
-              Please wait, loading...
+              Please wait, fetchingPost...
             </p>
           </div>
         }

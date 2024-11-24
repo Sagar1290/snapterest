@@ -1,14 +1,29 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { HiCamera } from "react-icons/hi";
-import { IoClose } from "react-icons/io5";
-import { Modal, Notification, Progress, useToaster } from "rsuite";
+import { IoAddCircle, IoClose } from "react-icons/io5";
+import {
+  IconButton,
+  Input,
+  Modal,
+  Notification,
+  Progress,
+  Tag,
+  TagGroup,
+  useToaster,
+} from "rsuite";
+import PlusIcon from "@rsuite/icons/Plus";
+
 import "rsuite/Modal/styles/index.css";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage, app } from "@/firebase.config";
+import { PostContext } from "@/app/context";
+import { BsTagsFill } from "react-icons/bs";
 
 const CreatePostModal = (props) => {
   const { isOpen, setIsOpen } = props;
+
+  const { setPostData } = useContext(PostContext);
 
   const storageRef = ref(storage);
   const imgRef = useRef(null);
@@ -19,6 +34,10 @@ const CreatePostModal = (props) => {
   const [imgUrl, setImgUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadingPercentage, setUploadingPercentage] = useState(0);
+  const [tags, setTags] = useState([]);
+  const [typing, setTyping] = useState(false);
+
+  const tagInputRef = useRef(null);
 
   const handleImageUpload = (e) => {
     e.preventDefault();
@@ -122,12 +141,14 @@ const CreatePostModal = (props) => {
       });
       return;
     }
+    const allTags = ["photography", ...tags]
 
     const location = await getUserCountry();
     const postData = {
       imageURL: url,
       caption: captionInputRef.current.value,
       location: location ?? null,
+      tags: allTags
     };
     try {
       const response = await fetch(
@@ -142,8 +163,7 @@ const CreatePostModal = (props) => {
         }
       );
 
-      
-      if(response.status == 401){
+      if (response.status == 401) {
         const errorMessage = (
           <Notification type="error" header="Session Expired" closable>
             Your session has expired. Please log in again to continue.
@@ -154,7 +174,7 @@ const CreatePostModal = (props) => {
           duration: 3 * 1000,
         });
       }
-      
+
       if (!response.ok) {
         throw new Error("Failed to create post");
       }
@@ -163,6 +183,9 @@ const CreatePostModal = (props) => {
       setImage(null);
       setImgUrl(null);
       captionInputRef.current.value = "";
+      if (createdPost.data) {
+        setPostData((prev) => [createdPost.data, ...prev]);
+      }
 
       const successMessage = (
         <Notification type="success" header="Post Created" closable>
@@ -210,6 +233,23 @@ const CreatePostModal = (props) => {
     marginRight: 10,
   };
 
+  const removeTag = (tag) => {
+    const nextTags = tags.filter((item) => item !== tag);
+    setTags(nextTags);
+  };
+
+  const addTag = () => {
+    const inputValue = tagInputRef.current.value;
+    const nextTags = inputValue ? [...tags, inputValue] : tags;
+    setTags(nextTags);
+    setTyping(false);
+    tagInputRef.current.value = "";
+  };
+
+  const handleButtonClick = () => {
+    setTyping(true);
+  };
+
   return (
     <Modal open={isOpen} backdrop={true}>
       <Modal.Header closeButton={false}>
@@ -244,6 +284,46 @@ const CreatePostModal = (props) => {
           className="bg-white rounded-lg text-gray-800 w-[80%] focus:ring-0 outline-none text-center p-4 my-2"
           type="text"
         />
+        <div className="mx-6 w-full flex gap-4 flex-row items-center justify-start">
+          <div>
+            <BsTagsFill size={20} />
+          </div>
+          <div>
+            <TagGroup className="flex flex-row flex-wrap">
+              <Tag key={"photography"}>photography</Tag>
+              {tags.map((item, index) => (
+                <Tag
+                  key={index}
+                  closable
+                  onClose={() => removeTag(item)}
+                  color="white"
+                >
+                  {item}
+                </Tag>
+              ))}
+              <Tag color="white">
+                {typing ? (
+                  <Input
+                    className="tag-input"
+                    size="xs"
+                    ref={tagInputRef}
+                    style={{ width: 70 }}
+                    onBlur={addTag}
+                    onPressEnter={addTag}
+                  />
+                ) : (
+                  <IconButton
+                    className="tag-add-btn"
+                    onClick={handleButtonClick}
+                    icon={<PlusIcon />}
+                    appearance="ghost"
+                    size="xs"
+                  />
+                )}
+              </Tag>
+            </TagGroup>
+          </div>
+        </div>
         <button
           type="submit"
           onClick={handleImageUpload}
