@@ -152,8 +152,10 @@ const Card = ({ post, currentUser }) => {
         />
         <div className="flex flex-col">
           <div className="text-base font-semibold">{post?.user?.fullname}</div>
-          <div className="text-sm flex gap-2 items-center">
-            <CiLocationOn />
+          <div className="text-sm flex gap-2 items-center ">
+            <div>
+              <CiLocationOn size={16} />
+            </div>
             <span>{post?.location}</span>
           </div>
         </div>

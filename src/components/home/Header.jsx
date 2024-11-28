@@ -3,13 +3,15 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { IoClose, IoMenu } from "react-icons/io5";
+import { Avatar, Dropdown } from "rsuite";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
   }, []);
-  
+
   let session;
   if (isClient) {
     session = JSON.parse(localStorage.getItem("session"));
@@ -18,6 +20,7 @@ const Header = () => {
   const [showSignOut, setShowSignOut] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
+  const router = useRouter();
 
   const handleShowMenu = () => {
     setShowMenu((prev) => !prev);
@@ -39,6 +42,10 @@ const Header = () => {
     localStorage.clear("token");
     localStorage.clear("session");
   };
+
+  const renderToggle = (props) => (
+    <Avatar circle {...props} src={session.photoURL} />
+  );
 
   return (
     <header
@@ -81,28 +88,26 @@ const Header = () => {
             </Link>
           </li>
           {session ? (
-            <li
-              className="h-8 w-8 rounded-full relative cursor-pointer"
-              onClick={() => setShowSignOut((prev) => !prev)}
-            >
-              <img
-                src={session.photoURL}
-                alt="user"
-                className="object-cover rounded-full"
-              />
-              {showSignOut && (
-                <li
-                  className="z-50 p-4 bg-gray-600 text-gray-50 absolute top-12 right-4 w-44 rounded-lg cursor-pointer"
-                  onClick={handleSignOut}
-                >
-                  <p>Sign Out</p>
-                </li>
-              )}
+            <li>
+              <Dropdown renderToggle={renderToggle} placement="bottomEnd">
+                <Dropdown.Item panel style={{ padding: 10, width: 160 }}>
+                  <strong className="text-black">{session.fullname}</strong>
+                </Dropdown.Item>
+                <Dropdown.Separator />
+                <Dropdown.Item onClick={() => router.push(`/profile`)}>
+                  Your profile
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => router.push(`/activity`)}>
+                  Your Activity
+                </Dropdown.Item>
+                <Dropdown.Separator />
+                <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
+              </Dropdown>
             </li>
           ) : (
             <Link
               className="text-white hover:text-gray-100/75 hover:cursor-pointer"
-              href="/login?redirect=home"
+              href="/login?redirect="
             >
               <span>Join Us</span>
             </Link>
@@ -128,7 +133,7 @@ const Header = () => {
                   <li>
                     <Link
                       className="cursor-pointer block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
-                      href="/login?redirect=home"
+                      href="/login?redirect="
                     >
                       Join Us
                     </Link>

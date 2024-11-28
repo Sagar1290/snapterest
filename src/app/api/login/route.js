@@ -27,6 +27,7 @@ export async function POST(request) {
     }
 
     const userToBeReturned = {
+      userID: user.id,
       fullname: user.fullname,
       email: user.email,
       photoURL: user.photoURL,

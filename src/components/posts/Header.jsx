@@ -5,8 +5,11 @@ import React, { useEffect, useState } from "react";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import CreatePostModal from "./CreatePostModal";
+import { Avatar, Dropdown } from "rsuite";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
@@ -28,6 +31,10 @@ const Header = () => {
   const handleShowMenu = () => {
     setShowMenu((prev) => !prev);
   };
+
+  const renderToggle = (props) => (
+    <Avatar circle {...props} src={session.photoURL} />
+  );
 
   return (
     <header className="bg-black w-full fixed top-0 p-6 z-50 transition-all duration-300 h-20">
@@ -72,8 +79,8 @@ const Header = () => {
                   </div>
                 ) : (
                   <Link
-                  className="text-white hover:text-gray-100/75 hidden lg:block"
-                  href="/login?redirect=posts"
+                    className="text-white hover:text-gray-100/75 hidden lg:block"
+                    href="/login?redirect=posts"
                   >
                     Login to create post
                   </Link>
@@ -88,23 +95,23 @@ const Header = () => {
                 </Link>
               </li>
               {session ? (
-                <li
-                  className="h-8 w-8 rounded-full relative cursor-pointer"
-                  onClick={() => setShowSignOut((prev) => !prev)}
-                >
-                  <img
-                    src={session.photoURL}
-                    alt="user"
-                    className="object-cover rounded-full"
-                  />
-                  {showSignOut && (
-                    <div
-                      className="z-50 p-4 bg-gray-600 text-gray-50 absolute top-12 right-4 w-44 rounded-lg cursor-pointer"
-                      onClick={handleSignOut}
-                    >
-                      <p>Sign Out</p>
-                    </div>
-                  )}
+                <li className="h-8 w-8 rounded-full relative cursor-pointer">
+                  <Dropdown renderToggle={renderToggle} placement="bottomEnd">
+                    <Dropdown.Item panel style={{ padding: 10, width: 160 }}>
+                      <strong className="text-black">{session.fullname}</strong>
+                    </Dropdown.Item>
+                    <Dropdown.Separator />
+                    <Dropdown.Item onClick={() => router.push(`/profile`)}>
+                      Your profile
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => router.push(`/activity`)}>
+                      Your Acticity
+                    </Dropdown.Item>
+                    <Dropdown.Separator />
+                    <Dropdown.Item onClick={handleSignOut}>
+                      Sign out
+                    </Dropdown.Item>
+                  </Dropdown>
                 </li>
               ) : (
                 <Link
